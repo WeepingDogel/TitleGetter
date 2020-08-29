@@ -1,4 +1,5 @@
-import datetime
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
 import requests
 from bs4 import BeautifulSoup
 session = requests.session()
@@ -11,6 +12,7 @@ if response.status_code == 200:
     html = response.text
     soup = BeautifulSoup(html,'lxml')
     a = soup.find('title')
-    print('目标的标题为:' + a.string)
+    soup = BeautifulSoup(html,'lxml')
+    print('目标的标题为:'+ a.string)
 else:
     print('请求失败')
