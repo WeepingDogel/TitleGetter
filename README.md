@@ -62,6 +62,7 @@ BatchMode = true
 $ python titlegetter.py
 ```
 然后输入一个文件名，随意，不需要带后缀
+
 稍等片刻，就能在 `out/` 这个目录下获得这样的文件:
 ```markdown
 [Linux 的环境变量怎么设 - 依云's Blog](https://blog.lilydjwg.me/2020/7/22/linux-environment-variables.215496.html)
