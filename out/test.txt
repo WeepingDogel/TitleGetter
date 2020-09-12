@@ -13,9 +13,6 @@ URL: https://www.google.com/
 Title: Links – EVEX
 URL: https://evex.one/friends/
 
-Title: python使用逐行读取，出现空行，清楚空行方法-魏若愚--专注Linux-51CTO博客
-URL: https://blog.51cto.com/weiruoyu/2145910
-
 Title: Google Translate
 URL: https://translate.google.com/
 
@@ -51,12 +48,6 @@ URL: https://gohugo.io/documentation/
 
 Title: W3Schools Online Web Tutorials
 URL: https://www.w3schools.com/
-
-Title: 六神加速
-URL: https://sixgod.cc/
-
-Title: zone.liolok.com - LIOZONE
-URL: https://zone.liolok.com/
 
 Title: Startpage.com - The world's most private search engine
 URL: https://startpage.com/
