@@ -1,0 +1,31 @@
+# 编码修正， true 为开启，false 为关闭，如果出现符号乱码请开启
+# Fix the encoding problem if the result can't be read.
+# If true, the web source that gotten by the script will be encoded to ISO8859-1
+# if saw this on BatchMode:
+#---
+#Traceback (most recent call last):
+#  File "titlegetter.py", line 67, in <module>
+#    source = response.text.encode('ISO8859-1')
+#UnicodeEncodeError: 'latin-1' codec can't encode characters in position 2330-2331: ordinal not in range(256)
+#---
+# Don't  set it up to true, wait for the new version updating.
+
+EncodingFix = false
+
+# 以 MarkDown 格式输出
+# Export as MarkDown format.
+AsMarkDown = false
+
+# 批量模式
+# Barch Mode, to get a few..
+# And write a file to storage the result
+BatchMode = false
+
+# UA
+[headers]
+User-Agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36'
+
+[Language]
+# lang="en-US" is set  up to English
+# lang="zh-CN" is set  up to Chinese 中文
+lang = "en-US"
