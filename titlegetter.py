@@ -72,7 +72,7 @@ if config['BatchMode'] == True:
             a = soup.find('title')
             titles = a.string.strip()
             if config['AsMarkDown'] == True:
-                f.write("["+titles+"]"+"("+url+")\n")
+                f.write("["+titles+"]"+"("+url+")\n\n")
                 print_as_markdown(titles,url)
             else:
                 f.write(result+titles + "\n" + "URL: " + url + "\n\n")
