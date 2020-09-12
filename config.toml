@@ -14,7 +14,7 @@ EncodingFix = false
 
 # 以 MarkDown 格式输出
 # Export as MarkDown format.
-AsMarkDown = true
+AsMarkDown = false
 
 # 批量模式
 # Barch Mode, to get a few..
