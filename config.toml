@@ -14,12 +14,12 @@ EncodingFix = false
 
 # 以 MarkDown 格式输出
 # Export as MarkDown format.
-AsMarkDown = false
+AsMarkDown = true
 
 # 批量模式
 # Barch Mode, to get a few..
 # And write a file to storage the result
-BatchMode = false
+BatchMode = true
 
 # UA
 [headers]
