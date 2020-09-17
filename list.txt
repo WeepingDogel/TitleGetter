@@ -1,3 +1,7 @@
 https://github.com/WeepingDogel/TitleGetter
 https://github.com/piggy-moe/subtitle
 https://www.bilibili.com/
+https://blog.lilydjwg.me/2020/7/22/linux-environment-variables.215496.html
+https://wiki.archlinux.org/index.php/Fcitx5_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)
+https://en.wikipedia.org/wiki/Fcitx
+https://wiki.archlinux.org/index.php/Fcitx_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)
