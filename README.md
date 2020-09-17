@@ -25,11 +25,17 @@ URL: https://linuxtoy.org/archives/linux-deepin-2014-alpha-into-new-deepin-world
 ```
 
 ## 依赖
-运行前请安装这几个 Python 库，`requests`、`bs4`、`toml`
+
+* requests
+* bs4
+* toml
+* lxml
 
 ```
-$ pip install requests bs4 toml
+$ pip install requests bs4 toml lxml
 ```
+不太清楚版本需求... 应该都能用吧...
+
 ## 使用
 ### 安装？
 直接 `git clone`
