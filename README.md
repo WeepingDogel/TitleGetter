@@ -26,10 +26,12 @@ URL: https://linuxtoy.org/archives/linux-deepin-2014-alpha-into-new-deepin-world
 
 ## 依赖
 
-* requests
-* bs4
-* toml
-* lxml
+* Python
+* 库
+    * requests
+    * bs4
+    * toml
+    * lxml
 
 ```
 $ pip install requests bs4 toml lxml
