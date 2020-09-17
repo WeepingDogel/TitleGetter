@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
+import os
 import requests
 from bs4 import BeautifulSoup
 import toml
@@ -20,6 +21,7 @@ if config['Language']['lang'] == "en-US":
     requests_failure = "Failed to request"
     result = "Title: "
     filename_input = "Type a filename: "
+    empty_line_warning = "WARN: empty line is forbidden."
 elif config['Language']['lang'] == "zh-CN":
     input_tip = "请输入一个链接: "
     version = "版本："
@@ -27,6 +29,7 @@ elif config['Language']['lang'] == "zh-CN":
     requests_failure = "请求失败"
     result = "标题: "
     filename_input = "输入文件名: "
+    empty_line_warning = "警告：禁止空行"
 # sign of program
 def sign():
     print('''
@@ -58,6 +61,13 @@ if config['BatchMode'] == True:
         for x in urlist:
             # .strip() : delete the blank line
             url = x.strip()
+            # empty line checking
+            if url == '':
+                print(empty_line_warning)
+                urlist.close()
+                os.remove("./out/" + filename + file_format)
+                os._exit(0)
+                # mpty line checking
             response = session.get(url,headers=headers)
             if response.status_code == 200:
                 print(requests_success)
