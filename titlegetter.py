@@ -67,7 +67,7 @@ if config['BatchMode'] == True:
                 urlist.close()
                 os.remove("./out/" + filename + file_format)
                 os._exit(0)
-                # mpty line checking
+                # empty line checking
             response = session.get(url,headers=headers)
             if response.status_code == 200:
                 print(requests_success)
