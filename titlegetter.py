@@ -6,13 +6,8 @@ from bs4 import BeautifulSoup
 import toml
 def print_as_markdown(a,b):
     print("["+a+"]"+"("+b+")")
-def loadtoml(filename):
-    # load the *.toml file 
-    fileobj = open(filename)
-    config = toml.load(fileobj)
-    return config
 # load config
-config = loadtoml('config.toml')
+config = toml.load('config.toml')
 # check Language config
 if config['Language']['lang'] == "en-US":
     input_tip = "Please type an URL: "
