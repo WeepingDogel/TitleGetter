@@ -50,7 +50,7 @@ if config['BatchMode'] == True:
     else:
         file_format = ".txt"
     # Batch Mode
-    with open('out/'+filename+ file_format,'x') as f:
+    with open('out/'+filename+ file_format,'x',encoding="utf8") as f:
          # load the URLs
         urlist = open('list.txt')
         for x in urlist:
