@@ -1,31 +1,40 @@
-# 编码修正， true 为开启，false 为关闭，如果出现符号乱码请开启
-# Fix the encoding problem if the result can't be read.
-# If true, the web source that gotten by the script will be encoded to ISO8859-1
-# if saw this on BatchMode:
-#---
-#Traceback (most recent call last):
-#  File "titlegetter.py", line 67, in <module>
-#    source = response.text.encode('ISO8859-1')
-#UnicodeEncodeError: 'latin-1' codec can't encode characters in position 2330-2331: ordinal not in range(256)
-#---
-# Don't  set it up to true, wait for the new version updating.
-
-EncodingFix = false
-
-# 以 MarkDown 格式输出
-# Export as MarkDown format.
-AsMarkDown = true
-
-# 批量模式
-# Barch Mode, to get a few..
-# And write a file to storage the result
-BatchMode = true
-
+[Sign]
+LOGO = '''
+  ______ _  __   __         ______       __   __             
+ /_  __/(_)/ /_ / /___     / ____/___   / /_ / /_ ___   _____
+  / /  / // __// // _ \   / / __ / _ \ / __// __// _ \ / ___/
+ / /  / // /_ / //  __/  / /_/ //  __// /_ / /_ /  __// /    
+/_/  /_/ \__//_/ \___/   \____/ \___/ \__/ \__/ \___//_/     
+                                                             
+'''
+Version = "2.0.0"
 # UA
 [headers]
 User-Agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36'
 
+[BatchMode]
+Turn_on = true
+
 [Language]
-# lang="en-US" is set  up to English
-# lang="zh-CN" is set  up to Chinese 中文
-lang = "en-US"
+# lang="en_US" is set  up to English
+# lang="zh_CN" is set  up to Chinese 中文
+lang = "en_US"
+    
+    [Language.en_US]
+    input_tip = "Please type an URL: "
+    version = "Version: "
+    requests_success = "Requested Successfully"
+    requests_failure = "Failed to request"
+    result = "Title: "
+    filename_input = "Type a filename: "
+    empty_line_warning = "WARN: empty line is forbidden."
+    output_asking = "Which format do you want to output?"
+    [Language.zh_CN]
+    input_tip = "请输入一个链接: "
+    version = "版本："
+    requests_success = "请求成功"
+    requests_failure = "请求失败"
+    result = "标题: "
+    filename_input = "输入文件名: "
+    empty_line_warning = "警告：禁止空行"
+    output_asking = "你想以哪种格式输出？"
