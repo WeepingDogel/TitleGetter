@@ -1,0 +1,14 @@
+[en_US]
+input_tip = "Please type an URL: "
+requests_success = "Requested Successfully"
+requests_failure = "Failed to request"
+filename_input = "Type a filename: "
+empty_line_warning = "WARN: empty line is forbidden."
+output_asking = "Which format do you want to output?"
+[zh_CN]
+input_tip = "请输入一个链接: "
+requests_success = "请求成功"
+requests_failure = "请求失败"
+filename_input = "输入文件名: "
+empty_line_warning = "警告：禁止空行"
+output_asking = "你想以哪种格式输出？"
