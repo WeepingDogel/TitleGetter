@@ -16,7 +16,7 @@ URLLIST = "list.txt"
 User-Agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.105 Safari/537.36'
 
 [BatchMode]
-Turn_on = true
+Turn_on = false
 
 [Language]
 # lang="en_US" is set  up to English
