@@ -170,10 +170,12 @@ Here is the running aera for the classes, everything will be started from here.
 Starting = Main()
 OutPut = Interactions()
 Do = Process()
-if os.path.exists(os.getenv('HOME') + '/.config/titlegetter/config.toml') == False:
-    config = Starting.LoadTheConfig(filename="/usr/share/titlegetter/config.toml")
+if os.path.exists(os.getenv('XDG_CONFIG_HOME') + '/titlegetter/config.toml') == True:
+    config = Starting.LoadTheConfig(filename=os.getenv('XDG_CONFIG_HOME') + '/titlegetter/config.toml')
+elif os.path.exists(os.getenv('HOME')+'/.config/titlegetter/config.toml') == True:
+    config = Starting.LoadTheConfig(os.getenv('HOME')+'/.config/titlegetter/config.toml')
 else:
-    config = Starting.LoadTheConfig(filename=os.getenv('HOME') + "/.config/titlegetter/config.toml")
+    config = Starting.LoadTheConfig('/etc/titlegetter/config.toml')
 # config = Starting.LoadTheConfig(filename="config/config.toml") # Now it's time to load the config file. :)
 Starting.ShowLogo(config=config) # if the LOGO is printed currectly, the configuration file has been loaded successfully.
 Starting.ShowVersion(config=config) # Show the version
