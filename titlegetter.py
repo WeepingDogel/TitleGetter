@@ -170,7 +170,7 @@ Here is the running aera for the classes, everything will be started from here.
 Starting = Main()
 OutPut = Interactions()
 Do = Process()
-if os.path.exists(os.getenv('XDG_CONFIG_HOME') + '/titlegetter/config.toml') == True:
+if os.path.exists(str(os.getenv('XDG_CONFIG_HOME')) + '/titlegetter/config.toml') == True:
     config = Starting.LoadTheConfig(os.getenv('XDG_CONFIG_HOME')+'/titlegetter/config.toml')
 elif os.path.exists(os.getenv('HOME') + '/.config/titlegetter/config.toml') == True:
     config = Starting.LoadTheConfig(os.getenv('HOME') + '/.config/titlegetter/config.toml')
