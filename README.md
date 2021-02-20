@@ -23,3 +23,7 @@ $ cd TitleGetter
 $ python titlegetter.py
 ```
 
+On Arch Linux (aur):
+```
+$ yay -S titlegetter
+```
