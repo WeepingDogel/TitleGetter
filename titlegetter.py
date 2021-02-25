@@ -7,6 +7,9 @@ import requests
 from bs4 import BeautifulSoup
 import toml
 ### Modules Importing ###
+'''
+This is aur version.
+'''
 
 class Main:
     '''
@@ -162,10 +165,10 @@ Here is the running aera for the classes, everything will be started from here.
 
 ## Step Zero, initialize everything.
 Starting = Main()
-config = Starting.LoadTheConfig(filename="config/config.toml") # Now it's time to load the config file. :)
+config = Starting.LoadTheConfig(filename="/etc/titlegetter/config.toml") # Now it's time to load the config file. :)
 Starting.ShowLogo(config=config) # if the LOGO is printed currectly, the configuration file has been loaded successfully.
 Starting.ShowVersion(config=config) # Show the version
-Outputs = Starting.LoadOutputs(filename="config/lang.toml") # Load the output texts
+Outputs = Starting.LoadOutputs(filename="/usr/share/titlegetter/lang.toml") # Load the output texts
 OutPut = Interactions()
 lang = OutPut.CheckLanguage(config=config) # get the langauge
 Do = Process()
@@ -201,7 +204,7 @@ elif Do.CheckBatch(config=config) == 1:
     if choose == 2:
         FileFormat = '.html'
     FileName = OutPut.FileNameInput(lang=lang,Outputs=Outputs) ## Get the filename
-    with open('Documents/' + FileName + FileFormat, 'x', encoding='utf-8') as f: # Create a file to save the result.
+    with open(os.getenv('HOME') + '/Documents/' + FileName + FileFormat, 'x', encoding='utf-8') as f: # Create a file to save the result.
         URLLIST = open(config['Main']['URLLIST']) # Get the URLLIST from the configuration file
         for URL in URLLIST: # Get the URL from the URLLIST
             PureURL = URL.strip() # Remove the blanks 
@@ -217,5 +220,5 @@ elif Do.CheckBatch(config=config) == 1:
                 f.write("<a href=" + "\"" + PureURL + "\"" + ">" + Title + "</a>" + "\n")
                 Do.PrintAsHTML(title=Title,URL=PureURL)
         # Tell the file to the user
-        print('\n\n\n\n File saved as:' + os.getcwd() + '/Documents/' + FileName + FileFormat) 
+        print('\n\n\n\n File saved as:' + os.getenv('HOME') + '/Documents/' + FileName + FileFormat) 
 ##Running##
