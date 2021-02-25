@@ -172,11 +172,11 @@ OutPut = Interactions()
 Do = Process()
 if os.path.exists(str(os.getenv('XDG_CONFIG_HOME')) + '/titlegetter/config.toml') == True:
     config = Starting.LoadTheConfig(os.getenv('XDG_CONFIG_HOME')+'/titlegetter/config.toml')
-#elif os.path.exists(os.getenv('HOME') + '/.config/titlegetter/config.toml') == True:
-    #config = Starting.LoadTheConfig(os.getenv('HOME') + '/.config/titlegetter/config.toml')
-#else:
-    #config = Starting.LoadTheConfig('/etc/titlegetter/config.toml')
-else:
+elif os.path.exists(os.getenv('HOME') + '/.config/titlegetter/config.toml') == True:
+    config = Starting.LoadTheConfig(os.getenv('HOME') + '/.config/titlegetter/config.toml')
+elif os.path.exists('/etc/titlegetter/config.toml') == True:
+    config = Starting.LoadTheConfig('/etc/titlegetter/config.toml')
+elif os.path.exists('config/config.toml') == True:
     config = Starting.LoadTheConfig(filename="config/config.toml") # Now it's time to load the config file. :)
 Starting.ShowLogo(config=config) # if the LOGO is printed currectly, the configuration file has been loaded successfully.
 Starting.ShowVersion(config=config) # Show the version
