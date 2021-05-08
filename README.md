@@ -1,3 +1,7 @@
+![](Pics/TitleGetter.png)
+
+
+
 **titlegetter** is a little tool to get the title of the websites and format the title and the links to **markdown** or **html**.
 
 
