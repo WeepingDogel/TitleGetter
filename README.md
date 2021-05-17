@@ -13,6 +13,7 @@
     * bs4
     * toml
     * lxml
+    * argparse
 
 ## Installation
 
@@ -31,3 +32,11 @@ On Arch Linux (aur):
 ```
 $ yay -S titlegetter
 ```
+
+## Update Logs
+
+### 2.2.0
+
+* Argparse was used, users can use it flexibly.
+* `lang.toml` was removed.
+* Fixed some bugs.

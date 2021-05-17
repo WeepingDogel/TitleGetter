@@ -1,25 +1,33 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
-
-
 '''
 This is master branch.
 :)
 '''
-
 ### Modules Importing ###
 import os
 import requests
 from bs4 import BeautifulSoup
 import toml
+import argparse
 ### Modules Importing ###
-
 class Main:
     '''
     Main Opertations
     Loading configuration files and languages, show the version and the logo, etc.
     The functions on this class will be ran as soon as the program started.
     '''
+    def GetParser(self):
+        '''
+        This function is used to get the options the users give.
+        '''
+        parser = argparse.ArgumentParser(description='HELP',epilog='Have a nice day!')
+        parser.add_argument('-f','--format', help='The format of output')
+        parser.add_argument('-o','--output', help='The filename of output')
+        parser.add_argument('-u','--url', help='The url from which you want to get the Title')
+        parser.add_argument('-i','--input-file', help='The original url list. It may be a *.txt file.')
+        parser.add_argument('-b','--batch-mode', help='Get titles from multi URLs, a list file(*.txt) and an output-file are required.', action="store_true")
+        return parser
     def LoadTheConfig(self,filename):
         '''
         Configuration files will be loaded by this function.
@@ -64,83 +72,28 @@ class Main:
         '''
         lang = toml.load(filename)
         return lang
-    def ShowVersion(self,config):
-        print(config['Sign']['Version'])
+    def ShowVersion(self):
+        Version = '2.2.0'
+        print("V " + Version)
         # Get the version from the configuration file, and show it on the terminal.
-class Interactions:
-    #This class is in order to deal with languages and outputs.
-    def CheckLanguage(self,config):
-        # Check the language type from configuration file.
-        if config['Language']['lang'] == "en_US":
-            lang = 0
-        elif config['Language']['lang'] == "zh_CN":
-            lang = 1
-        return lang
-    def InputTip(self,lang,Outputs):
-        # Out put a tip to get a URL.
-        if lang == 0:
-            URL = input(Outputs['en_US']['input_tip'])
-        if lang == 1:
-            URL = input(Outputs['zh_CN']['input_tip'])
-        return URL
-    def RequestsSuccess(self,lang, Outputs):
-        # print a sentence 
-        # "Requested Successfully"
-        if lang == 0:
-            print(Outputs['en_US']['requests_success'])
-        if lang == 1:
-            print(Outputs['zh_CN']['requests_success'])
-    def RequestsFailure(self,lang, Outputs):
-        # print a sentence 
-        # "Requested Successfully"
-        if lang == 0:
-            print(Outputs['en_US']['requests_failure'])
-        if lang == 1:
-            print(Outputs['zh_CN']['requests_failure'])
-    def FileNameInput(self,lang,Outputs):
-        # Output a tip to get a file name.
-        if lang == 0:
-            FileName = input(Outputs['en_US']['filename_input'])
-        if lang == 1:
-            FileName = input(Outputs['zh_CN']['filename_input'])
-        return FileName
-    def EmptyLineWarning(self,lang,Outputs):
-        # Output a warn
-        if lang == 0:
-            print(Outputs['en_US']['empty_line_warning'])
-        if lang == 1:
-            print(Outputs['zh_CN']['empty_line_warning'])
-    def OutputAsking(self,lang,Outputs):
-        # Output three tips to ask the user...
-        if lang == 0:
-            print(Outputs['en_US']['output_asking'])
-        if lang == 1:
-            print(Outputs['zh_CN']['output_asking'])
-        print('''
-(0) Pure TEXT
-(1) MarkDown
-(2) HTML
-                ''')
-        choose = int(input(':'))
-        return choose
 class Process:
-    def CheckBatch(self,config):
-        # check if the BatchMode opened
-        if config['BatchMode']['Turn_on'] == False:
-            print("Batch OFF")
-            return 0
-        if config['BatchMode']['Turn_on'] == True:
-            print("Batch On")
-            return 1
+#    def CheckBatch(self,config):
+#        # check if the BatchMode opened
+#        if config['BatchMode']['Turn_on'] == False:
+#            print("Batch OFF")
+#            return 0
+#        if config['BatchMode']['Turn_on'] == True:
+#            print("Batch On")
+#            return 1
     def GetPage(self,headers,URL,session):
         # Get the webpage (HTML files).
         session = session
         response = session.get(url=URL, headers=headers)
         if response.status_code == 200:
-            print('\n' + URL + " --> 200 OK")
+            print('\n' + URL + " --> "+ str(response.status_code) +" OK")
             return response.text
         else:
-            print(URL + "Get Page Failed")
+            print(URL + "Get Page Failed:" + response.status_code)
             os._exit(0)
     def GetTitle(self,page):
         # Get the title from the page.
@@ -160,15 +113,11 @@ class Process:
         print('-' * 40)
         print("<a href=" + "\"" + URL + "\"" + ">" + title + "</a>")
         print('-' * 40)
-        
-##Running##
 '''
 Here is the running aera for the classes, everything will be started from here.
 '''
-
 ## Step Zero, initialize everything.
 Starting = Main()
-OutPut = Interactions()
 Do = Process()
 if os.path.exists(str(os.getenv('XDG_CONFIG_HOME')) + '/titlegetter/config.toml') == True:
     config = Starting.LoadTheConfig(os.getenv('XDG_CONFIG_HOME')+'/titlegetter/config.toml')
@@ -179,56 +128,78 @@ elif os.path.exists('/etc/titlegetter/config.toml') == True:
 elif os.path.exists('config/config.toml') == True:
     config = Starting.LoadTheConfig(filename="config/config.toml") # Now it's time to load the config file. :)
 Starting.ShowLogo(config=config) # if the LOGO is printed currectly, the configuration file has been loaded successfully.
-Starting.ShowVersion(config=config) # Show the version
-Outputs = Starting.LoadOutputs(filename="config/lang.toml") # Load the output texts
-lang = OutPut.CheckLanguage(config=config) # get the langauge
+Starting.ShowVersion() # Show the version
+parser = Starting.GetParser()
+args = parser.parse_args()
 headers = config['headers'] # import the headers
 session = requests.session() # start a session 
 ## Step One, Check if the BatchMode opening.
-
-if Do.CheckBatch(config=config) == 0:
-    ## Step Two, When the BatchMode is closed, try to get the single URL which is offered by the user.
-    URL = OutPut.InputTip(lang=lang, Outputs=Outputs)
-    ## Then Get the Page.
-    Page = Do.GetPage(headers=headers,URL=URL,session=session)
-    ## When we get the page, then get the title
+## Now it's time to check the WorkMode.
+if not args.batch_mode:
+    ## If it's zero, then we will work on single-url mode.
+    ## Now we just need to get the url.
+    URL = args.url
+    ## then get the title
+    if URL == None:
+        print('[ERROR] URL is required!')
+        os._exit(0)
+    Page = Do.GetPage(headers=headers, URL=URL, session=session)
     Title = Do.GetTitle(page=Page)
-    ## Then ask the user how to output the result.
-    choose = OutPut.OutputAsking(lang=lang,Outputs=Outputs)
-    ## Finally output the result by following the choose.
-    if choose == 0:
-        Do.PrintAsPureText(title=Title,URL=URL)
-    if choose == 1:
-        Do.PrintAsMarkDown(title=Title,URL=URL)
-    if choose == 2:
-        Do.PrintAsHTML(title=Title,URL=URL)
-elif Do.CheckBatch(config=config) == 1:
-    # Step Two
-    # When the BatchMode is turned on
-    # Ask the user how to output the result at first.
-    choose = OutPut.OutputAsking(lang=lang, Outputs=Outputs)
-    if choose == 0:
-        FileFormat = '.txt'
-    if choose == 1:
-        FileFormat = '.md'
-    if choose == 2:
-        FileFormat = '.html'
-    FileName = OutPut.FileNameInput(lang=lang,Outputs=Outputs) ## Get the filename
-    with open('Documents/' + FileName + FileFormat, 'x', encoding='utf-8') as f: # Create a file to save the result.
-        URLLIST = open(config['Main']['URLLIST']) # Get the URLLIST from the configuration file
-        for URL in URLLIST: # Get the URL from the URLLIST
-            PureURL = URL.strip() # Remove the blanks 
-            Page = Do.GetPage(headers=headers,URL=PureURL,session=session) # Get the Title
-            Title = Do.GetTitle(Page) # Get the Page
-            if FileFormat == '.txt': # Output
+    ## Then got the format.
+    if args.format == 'txt':
+        Do.PrintAsPureText(URL=URL,title=Title)
+    elif args.format == 'md':
+        Do.PrintAsMarkDown(URL=URL, title=Title)
+    elif args.format == 'html':
+        Do.PrintAsHTML(URL=URL,title=Title)
+    elif args.format == None:
+        print('[ERROR] Format is required!\n')
+        parser.print_help()
+    else:
+        print("'" + args.format + "'" + ' is not a legal format that TitleGetter supports.\n')
+        parser.print_help()
+elif args.batch_mode:
+    ## If the WorkMode is one, then it will be different.
+    ## at first we should read a text(*.txt) file which contains some URLs and the output-file.
+    InputFileName = args.input_file
+    ## Then we need to get the name of output-file
+    OutputFileName = args.output
+    ## And the format
+    Format = args.format
+    ## If None, print the warn.
+    if InputFileName == None:
+        print('[ERROR]Filename is required!')
+        parser.print_help()
+        os._exit(0)
+    if OutputFileName == None:
+        print('[ERROR] Filename is required!')
+        parser.print_help()
+        os._exit(0)
+    if Format == None:
+        print('[ERROR] Format is required!')
+        parser.print_help()
+        os._exit(0)
+    ## If everything is ok.
+    with open(OutputFileName, 'w', encoding='utf-8') as f: 
+        URLList = open(InputFileName)
+        for URL in URLList:
+            PureURL = URL.strip()
+            if PureURL == '':
+                print('[ERROR] URL can not be empty!')
+                f.close()
+                os.remove(OutputFileName)
+                os._exit(0)
+            print('[Loaded] ' + PureURL)
+            Page = Do.GetPage(headers = headers, URL = PureURL, session=session)
+            Title = Do.GetTitle(page=Page)
+            if Format == 'txt':
                 f.write('Title: ' + Title + '\n' + 'Link: ' + PureURL + '\n\n')
-                Do.PrintAsPureText(title=Title,URL=PureURL)
-            if FileFormat == '.md':
+                Do.PrintAsPureText(title = Title, URL = PureURL)
+            elif Format == 'md':
                 f.write('['+ Title + ']' + '(' + PureURL + ')' + '\n\n')
-                Do.PrintAsMarkDown(title=Title,URL=PureURL)
-            if FileFormat == '.html':
+                Do.PrintAsMarkDown(title = Title, URL = PureURL)
+            elif Format == 'html':
                 f.write("<a href=" + "\"" + PureURL + "\"" + ">" + Title + "</a>" + "\n")
-                Do.PrintAsHTML(title=Title,URL=PureURL)
+                Do.PrintAsHTML(title = Title, URL= PureURL)
         # Tell the file to the user
-        print('\n\n\n\n File saved as:' + os.getcwd() + '/Documents/' + FileName + FileFormat) 
-##Running##
+        print('\n\n\n\n File saved as:' + os.getcwd() + '/' + OutputFileName) 
