@@ -32,11 +32,3 @@ On Arch Linux (aur):
 ```
 $ yay -S titlegetter
 ```
-
-## Update Logs
-
-### 2.2.0
-
-* Argparse has been used, users can use it flexibly.
-* `lang.toml` was removed.
-* Fixed some bugs.
