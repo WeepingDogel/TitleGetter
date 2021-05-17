@@ -37,6 +37,6 @@ $ yay -S titlegetter
 
 ### 2.2.0
 
-* Argparse was used, users can use it flexibly.
+* Argparse has been used, users can use it flexibly.
 * `lang.toml` was removed.
 * Fixed some bugs.
