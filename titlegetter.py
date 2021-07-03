@@ -73,7 +73,7 @@ class Main:
         lang = toml.load(filename)
         return lang
     def ShowVersion(self):
-        Version = '2.2.0'
+        Version = '2.2.1'
         print("V " + Version)
         # Get the version from the configuration file, and show it on the terminal.
 class Process:
