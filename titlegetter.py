@@ -199,7 +199,7 @@ elif args.batch_mode:
                 f.write('['+ Title + ']' + '(' + PureURL + ')' + '\n\n')
                 Do.PrintAsMarkDown(title = Title, URL = PureURL)
             elif Format == 'html':
-                f.write("<a href=" + "\"" + PureURL + "\"" + ">" + Title + "</a>" + "\n")
+                f.write("<ul><a href=" + "\"" + PureURL + "\"" + ">" + Title + "</a></ul>" + "\n")
                 Do.PrintAsHTML(title = Title, URL= PureURL)
         # Tell the file to the user
         print('\n\n\n\n File saved as:' + os.getcwd() + '/' + OutputFileName) 
