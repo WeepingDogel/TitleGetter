@@ -111,7 +111,7 @@ class Process:
         print('-' * 40)
     def PrintAsHTML(self,title,URL):
         print('-' * 40)
-        print("<a href=" + "\"" + URL + "\"" + ">" + title + "</a>")
+        print("<ul><a href=" + "\"" + URL + "\"" + ">" + title + "</a></ul>")
         print('-' * 40)
 '''
 Here is the running aera for the classes, everything will be started from here.
