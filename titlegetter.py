@@ -50,7 +50,7 @@ class Main:
         print(config['Sign']['LOGO'])
         '''
         Well, finished.
-        But in order to read the LOGO currectly, the parameter "config" is required.
+        But in order to read the LOGO correctly, the parameter "config" is required.
         such as:
 
         config = LoadTheConfig("config.toml")
@@ -127,7 +127,7 @@ elif os.path.exists('/etc/titlegetter/config.toml') == True:
     config = Starting.LoadTheConfig('/etc/titlegetter/config.toml')
 elif os.path.exists('config/config.toml') == True:
     config = Starting.LoadTheConfig(filename="config/config.toml") # Now it's time to load the config file. :)
-Starting.ShowLogo(config=config) # if the LOGO is printed currectly, the configuration file has been loaded successfully.
+Starting.ShowLogo(config=config) # if the LOGO is printed correctly, the configuration file has been loaded successfully.
 Starting.ShowVersion() # Show the version
 parser = Starting.GetParser()
 args = parser.parse_args()
