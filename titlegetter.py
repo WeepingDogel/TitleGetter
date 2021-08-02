@@ -1,9 +1,6 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
-'''
-This is master branch.
-:)
-'''
+
 ### Modules Importing ###
 import os
 import requests
