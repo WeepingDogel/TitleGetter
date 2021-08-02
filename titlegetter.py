@@ -132,7 +132,7 @@ Starting = Main()
 Do = Process()
 if os.path.exists(str(os.getenv('XDG_CONFIG_HOME')) + '/titlegetter/config.toml') == True:
     config = Starting.LoadTheConfig(
-        os.getenv('XDG_CONFIG_HOME')+'/titlegetter/config.toml')
+        os.getenv('XDG_CONFIG_HOME') + '/titlegetter/config.toml')
 elif os.path.exists(os.getenv('HOME') + '/.config/titlegetter/config.toml') == True:
     config = Starting.LoadTheConfig(
         os.getenv('HOME') + '/.config/titlegetter/config.toml')
