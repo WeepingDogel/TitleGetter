@@ -30,7 +30,8 @@ class Main:
         parser.add_argument(
             '-i', '--input-file', help='The original url list. It may be a *.txt file.')
         parser.add_argument(
-            '-b', '--batch-mode', help='Get titles from multi URLs, a list file(*.txt) and an output-file are required.', action="store_true")
+            '-b', '--batch-mode', help=
+            'Get titles from multi URLs, a list file(*.txt) and an output-file are required.', action="store_true")
         return parser
 
     def LoadTheConfig(self, filename):
@@ -87,6 +88,7 @@ class Main:
 
 
 class Process:
+
     def GetPage(self, headers, URL, session):
         # Get the webpage (HTML files).
         session = session
@@ -118,6 +120,11 @@ class Process:
     def PrintAsHTML(self, title, URL):
         print('-' * 40)
         print("<ul><a href=" + "\"" + URL + "\"" + ">" + title + "</a></ul>")
+        print('-' * 40)
+
+    def PrintAsBBScode(self, title, URL):
+        print('-' * 40)
+        print("[url=" + URL + "]" + title + "[/url]")
         print('-' * 40)
 
 
@@ -164,6 +171,8 @@ if not args.batch_mode:
         Do.PrintAsMarkDown(URL=URL, title=Title)
     elif args.format == 'html':
         Do.PrintAsHTML(URL=URL, title=Title)
+    elif args.format == 'bbscode':
+        Do.PrintAsBBScode(URL=URL, title=Title)
     elif args.format == None:
         print('[ERROR] Format is required!\n')
         parser.print_help()
@@ -215,5 +224,9 @@ elif args.batch_mode:
                 f.write("<ul><a href=" + "\"" + PureURL +
                         "\"" + ">" + Title + "</a></ul>" + "\n")
                 Do.PrintAsHTML(title=Title, URL=PureURL)
+            elif Format == 'bbscode':
+                f.write("[url=" + PureURL + "]" + Title + "[/url]")
+                Do.PrintAsBBScode(title=Title, URL=PureURL)
         # Tell the file to the user
         print('\n\n\n\n File saved as:' + os.getcwd() + '/' + OutputFileName)
+
