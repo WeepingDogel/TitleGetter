@@ -12,7 +12,7 @@ import argparse
 
 class Main:
     '''
-    Main Opertations
+    Main Operations
     Loading configuration files and languages, show the version and the logo, etc.
     The functions on this class will be ran as soon as the program started.
     '''
@@ -68,9 +68,7 @@ class Main:
 
     def LoadOutputs(self, filename):
         '''
-        The intention of this function is the same one as the function LoadTheConfig(),
-        because the foolish dog doesn't know how to store the output texts of the different languages,
-        he used the *.toml file to store them...
+        The intention of this function is the same one as the function LoadTheConfig().
         This parameter "filename" is required to be a name of a toml file (*.toml),
         So...
         In the source code library, you can find it in the directory 'config/'.
@@ -82,7 +80,7 @@ class Main:
         return lang
 
     def ShowVersion(self):
-        Version = '2.2.1'
+        Version = '2.2.2'
         print("V " + Version)
         # Get the version from the configuration file, and show it on the terminal.
 
