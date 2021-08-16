@@ -80,7 +80,7 @@ class Main:
         return lang
 
     def ShowVersion(self):
-        Version = '2.2.2'
+        Version = '2.2.3'
         print("V " + Version)
         # Get the version from the configuration file, and show it on the terminal.
 
