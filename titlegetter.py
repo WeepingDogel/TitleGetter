@@ -23,6 +23,7 @@ class Main:
         '''
         parser = argparse.ArgumentParser(
             description='HELP', epilog='Have a nice day!')
+        parser.add_argument('-v', '--version', help='Show the version.', action='store_true')
         parser.add_argument('-f', '--format', help='The format of output')
         parser.add_argument('-o', '--output', help='The filename of output')
         parser.add_argument(
@@ -79,17 +80,25 @@ class Main:
         lang = toml.load(filename)
         return lang
 
-    def ShowVersion(self):
-        Version = '2.2.3'
-        print("V " + Version)
+    def ShowVersion(self, filename):
+        Version = open(filename)
+        print("titlegetter version " + Version.read())
         # Get the version from the configuration file, and show it on the terminal.
 
 
 class Process:
 
-    def GetPage(self, headers, URL, session):
+    def GetPage(self, headers, URL, session, config):
         # Get the webpage (HTML files).
+        if config['Proxy']['Enable']:
+            proxies = {
+                'http':config['Proxy']['socks5'],
+                'https':config['Proxy']['socks5']
+        }
+        else:
+            proxies = {}
         session = session
+        session.proxies.update(proxies)
         response = session.get(url=URL, headers=headers)
         if response.status_code == 200:
             print('\n' + URL + " --> " + str(response.status_code) + " OK")
@@ -124,11 +133,11 @@ class Process:
         print('-' * 40)
         print("[url=" + URL + "]" + title + "[/url]")
         print('-' * 40)
-
-
+       
 '''
 Here is the running aera for the classes, everything will be started from here.
 '''
+
 # Step Zero, initialize everything.
 Starting = Main()
 Do = Process()
@@ -143,24 +152,30 @@ elif os.path.exists('/etc/titlegetter/config.toml') == True:
 elif os.path.exists('config/config.toml') == True:
     # Now it's time to load the config file. :)
     config = Starting.LoadTheConfig(filename="config/config.toml")
-# if the LOGO is printed correctly, the configuration file has been loaded successfully.
+
 Starting.ShowLogo(config=config)
-Starting.ShowVersion()  # Show the version
 parser = Starting.GetParser()
 args = parser.parse_args()
 headers = config['headers']  # import the headers
 session = requests.session()  # start a session
 # Step One, Check if the BatchMode opening.
 # Now it's time to check the WorkMode.
+# if the LOGO is printed correctly, the configuration file has been loaded successfully.
+
+if args.version:
+    Starting.ShowVersion('config/version')
+    os._exit(0)
+
+
 if not args.batch_mode:
     # If it's zero, then we will work on single-url mode.
     # Now we just need to get the url.
     URL = args.url
     # then get the title
     if URL == None:
-        print('[ERROR] URL is required!')
-        os._exit(0)
-    Page = Do.GetPage(headers=headers, URL=URL, session=session)
+        parser.error('URL is required!')
+        parser.print_help()
+    Page = Do.GetPage(headers=headers, URL=URL, session=session, config=config)
     Title = Do.GetTitle(page=Page)
     # Then got the format.
     if args.format == 'txt':
@@ -172,10 +187,10 @@ if not args.batch_mode:
     elif args.format == 'bbscode':
         Do.PrintAsBBScode(URL=URL, title=Title)
     elif args.format == None:
-        print('[ERROR] Format is required!\n')
+        parser.error('Format is required!\n')
         parser.print_help()
     else:
-        print("'" + args.format + "'" +
+        parser.error("'" + args.format + "'" +
               ' is not a legal format that TitleGetter supports.\n')
         parser.print_help()
 elif args.batch_mode:
@@ -188,15 +203,15 @@ elif args.batch_mode:
     Format = args.format
     # If None, print the warn.
     if InputFileName == None:
-        print('[ERROR]Filename is required!')
+        parser.error('Filename is required!')
         parser.print_help()
         os._exit(0)
     if OutputFileName == None:
-        print('[ERROR] Filename is required!')
+        parser.error('Filename is required!')
         parser.print_help()
         os._exit(0)
     if Format == None:
-        print('[ERROR] Format is required!')
+        parser.error('Format is required!')
         parser.print_help()
         os._exit(0)
     # If everything is ok.
@@ -205,7 +220,7 @@ elif args.batch_mode:
         for URL in URLList:
             PureURL = URL.strip()
             if PureURL == '':
-                print('[ERROR] URL can not be empty!')
+                parser.error('URL can not be empty!')
                 f.close()
                 os.remove(OutputFileName)
                 os._exit(0)
