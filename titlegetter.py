@@ -164,8 +164,8 @@ session = requests.session()  # start a session
 # if the LOGO is printed correctly, the configuration file has been loaded successfully.
 
 if args.version:
-    if os.path.exists('/etc/titlegetter/config/.version'):
-        Starting.ShowVersion('/etc/titlegetter/config/.version')
+    if os.path.exists('/etc/titlegetter/.version'):
+        Starting.ShowVersion('/etc/titlegetter/.version')
     elif os.path.exists('config/version'):
         Starting.ShowVersion('config/version')
     os._exit(0)
