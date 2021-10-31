@@ -2,6 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 ### Modules Importing ###
+from genericpath import exists
 import os
 import requests
 from bs4 import BeautifulSoup
@@ -163,7 +164,10 @@ session = requests.session()  # start a session
 # if the LOGO is printed correctly, the configuration file has been loaded successfully.
 
 if args.version:
-    Starting.ShowVersion('config/version')
+    if os.path.exists('/etc/titlegetter/config/.version'):
+        Starting.ShowVersion('/etc/titlegetter/config/.version')
+    elif os.path.exists('config/version'):
+        Starting.ShowVersion('config/version')
     os._exit(0)
 
 
