@@ -229,7 +229,7 @@ elif args.batch_mode:
                 os.remove(OutputFileName)
                 os._exit(0)
             print('[Loaded] ' + PureURL)
-            Page = Do.GetPage(headers=headers, URL=PureURL, session=session)
+            Page = Do.GetPage(headers=headers, URL=PureURL, session=session, config=config)
             Title = Do.GetTitle(page=Page)
             if Format == 'txt':
                 f.write('Title: ' + Title + '\n' + 'Link: ' + PureURL + '\n\n')
